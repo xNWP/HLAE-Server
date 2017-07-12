@@ -30,6 +30,9 @@ namespace HLAEServer
 
 		// Public Functions
 	public:
+		/// <summary>Returns true if there is a connected client.
+		/// Returns false otherwise.</summary>
+		inline bool Connected();
 		/// <summary>Reads current data in the client buffer and updates
 		/// variables accordingly.<para/>
 		/// Should the client send a close connection request, you must

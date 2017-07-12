@@ -42,6 +42,11 @@ namespace HLAEServer
 
 	/*  Public Functions  */
 
+	inline bool HLAE_WS_Client::Connected()
+	{
+		return m_socket->Connected;
+	}
+
 	void HLAE_WS_Client::ReadDataWS()
 	{
 
