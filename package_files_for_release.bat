@@ -5,7 +5,7 @@ DEL /P *.7z *.zip
 CLS
 
 SET "sevzip="C:\Program Files\7-Zip\7z.exe""
-SET "version=1.0.0.0"
+SET "version=1.0.0.1"
 SET "filelist=HLAEServer.dll HLAEServer.xml README.txt"
 
 CD release_x86
