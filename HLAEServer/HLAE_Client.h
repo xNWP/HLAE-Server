@@ -51,6 +51,7 @@ namespace HLAEServer
 		int StartAfter(array<Byte>^ data, String^ key);
 		void DoHandShake(array<Byte>^ data);
 		void SendData(array<Byte>^ data);
+		void SendPing();
 		float FourByteFloatLE(array<Byte>^ data, int offset);
 		UInt32 FourByteUInt32LE(array<Byte>^ data, int offset);
 		UInt16 TwoByteUInt16BE(array<Byte>^ data, int offset);

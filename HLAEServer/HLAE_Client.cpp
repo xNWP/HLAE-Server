@@ -44,7 +44,18 @@ namespace HLAEServer
 
 	inline bool HLAE_WS_Client::Connected()
 	{
+		SendPing(); // We'll ping the server to update Connected.
 		return m_socket->Connected;
+	}
+
+	void HLAE_WS_Client::SendPing()
+	{
+		int Code = 0b10001001;
+		array<Byte>^ Payload = gcnew array<Byte>(2);
+		Payload[0] = (Byte)Code;
+		Payload[1] = 0; // Mask = 0, Payload Length = 0.
+
+		SendData(Payload);
 	}
 
 	void HLAE_WS_Client::ReadDataWS()
