@@ -1,5 +1,3 @@
-#include "stdafx.h"
-
 using namespace System;
 using namespace System::Reflection;
 using namespace System::Runtime::CompilerServices;
@@ -21,7 +19,7 @@ using namespace System::Security::Permissions;
 [assembly:AssemblyCultureAttribute(L"")];
 
 
-[assembly:AssemblyVersionAttribute("1.0.0.2")];
+[assembly:AssemblyVersionAttribute("1.0.1.0")];
 
 [assembly:ComVisible(false)];
 

@@ -8,7 +8,6 @@
 
 */
 
-#include "stdafx.h" 
 #include <msclr/marshal_cppstd.h>
 #include <math.h>
 
@@ -310,6 +309,9 @@ namespace HLAEServer
 
 			return DecodedData;
 		}
+
+		// bad design but we should hopefully never reach this return ¯\_(ツ)_/¯
+		return nullptr;
 	}
 
 	Byte HLAE_WS_Client::GetBits(Byte byte, int start, int end)

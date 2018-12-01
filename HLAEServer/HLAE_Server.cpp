@@ -8,7 +8,6 @@
 
 */
 
-#include "stdafx.h"
 #include <string>
 
 #include "HLAE_Server.h"
