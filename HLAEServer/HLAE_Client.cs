@@ -49,8 +49,6 @@ namespace HLAEServer
             if (m_socket.Connected == false)
                 return;
 
-
-
             int it = 0; // keep track of where we are in the data
 
             byte[] data = GetDataInBuffer(); // get data from buffer
@@ -159,10 +157,11 @@ namespace HLAEServer
                     continue;
                 }
             }
+            return;
         }
 
         /// <summary>Send 'data' as a command to the client.</summary>
-        void SendDataWS(string data)
+        public void SendDataWS(string data)
         {
             string FormattedData = "exec\0" + data + "\0";
             byte[] Payload = Encoding.UTF8.GetBytes(FormattedData);
@@ -311,7 +310,7 @@ namespace HLAEServer
         private byte GetByteFromUInt64(ulong INT, int Byte)
         {
             /* Gets Byte from int and pushes it to the far right. */
-            ulong MASK = 0b11111111;
+            byte MASK = 0b11111111;
             MASK <<= 8 * (7 - Byte);
 
             ulong ReturnInt = INT & MASK;
@@ -398,50 +397,31 @@ namespace HLAEServer
 
         private float FourByteFloatLE(byte[] data, int offset)
         {
-            uint ReturnInt = (uint)((data[offset]) | (data[offset + 1] << 8)
-            | (data[offset + 2] << 16) | (data[offset + 3] << 24));
-
-            float ReturnFloat = (float)ReturnInt;
-            return ReturnFloat;
+            return BitConverter.ToSingle(data, offset);
         }
 
         private uint FourByteUInt32LE(byte[] data, int offset)
         {
-            uint ReturnData = 0;
-            for (int i = offset; i < offset + 4; i++)
-            {
-                int powFactor = (int)(Math.Pow(2, 8 * (i - offset)));
-                ReturnData += (uint)(data[i] * powFactor);
-            }
-            return ReturnData;
+            return BitConverter.ToUInt32(data, offset);
         }
 
         private ushort TwoByteUInt16BE(byte[] data, int offset)
         {
-            ushort ReturnData = 0;
-            for (int i = offset; i < offset + 2; i++)
-            {
-                int powFactor = (int)(Math.Pow(2, 8 * (1 - (i - offset))));
-                ReturnData += (ushort)(data[i] * powFactor);
-            }
-            return ReturnData;
+            byte[] t = { data[offset + 1], data[offset + 0] };
+            return BitConverter.ToUInt16(t, 0);
         }
 
         private ulong EightByteUInt64BE(byte[] data, int offset)
         {
-            ulong ReturnData = 0;
-            for (int i = offset; i < offset + 8; i++)
-            {
-                int powFactor = (int)(Math.Pow(2, 8 * (7 - (i - offset))));
-                ReturnData += (ulong)(data[i] * powFactor);
-            }
-            return ReturnData;
+            byte[] t = { data[offset + 7], data[offset + 6], data[offset + 5], data[offset + 4],
+            data[offset + 3], data[offset + 2], data[offset + 1], data[offset + 0] };
+            return BitConverter.ToUInt64(t, 0);
         }
 
         // Public Variables
 
-		/// <summary>Gets identifier.</summary>
-		public string Name() { return m_identifier; }
+        /// <summary>Gets identifier.</summary>
+        public string Name() { return m_identifier; }
 
         /// <summary>Sets identifier.</summary>
         public void Name(string name)
